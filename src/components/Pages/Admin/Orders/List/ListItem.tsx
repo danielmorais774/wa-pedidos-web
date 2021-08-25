@@ -26,9 +26,7 @@ const ListItem = memo((props: IProps) => {
   }, [onEdit, order]);
 
   const options = useMemo<IOption[]>(() => {
-    return [
-      { text: 'Mais Informações', icon: InfoCircleIcon, handler: handleEdit },
-    ];
+    return [{ text: 'Mais Informações', icon: InfoCircleIcon, handler: handleEdit }];
   }, []);
 
   if (deleted) {
@@ -39,7 +37,9 @@ const ListItem = memo((props: IProps) => {
     <TableRow>
       <TableCell>{order.description}</TableCell>
       <TableCell>{order.qtd}</TableCell>
-      <TableCell>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.price)}</TableCell>
+      <TableCell>
+        {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.price)}
+      </TableCell>
       <TableCellActions options={options} loading={loading} error={error} onDismissError={handleDismissError} />
     </TableRow>
   );

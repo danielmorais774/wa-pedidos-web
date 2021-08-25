@@ -20,7 +20,6 @@ import { tap } from 'rxjs/operators';
 import userService from 'services/user';
 import * as yup from 'yup';
 
-
 interface IProps {
   opened: boolean;
   order?: IOrder;
@@ -31,7 +30,7 @@ interface IProps {
 const validationSchema = yup.object().shape({
   description: yup.string().required().min(3).max(250),
   qtd: yup.number().required().min(1),
-  price: yup.number().required(),
+  price: yup.number().required()
 });
 
 const useStyle = makeStyles({
@@ -54,7 +53,7 @@ const FormDialog = memo((props: IProps) => {
     onSubmit(model) {
       return orderService.save(model).pipe(
         tap(order => {
-          Toast.show(`Pedido criado!`);
+          Toast.show('Pedido criado!');
           props.onComplete(order);
         }),
         logError(true)
@@ -92,30 +91,35 @@ const FormDialog = memo((props: IProps) => {
 
           {!rolesError && (
             <Fragment>
-
               <Grid item xs={12} sm={12}>
-                  <TextField label='Descrição' name='description' formik={formik} multiline fullWidth disabled={!!formik.values.id}/>
+                <TextField
+                  label='Descrição'
+                  name='description'
+                  formik={formik}
+                  multiline
+                  fullWidth
+                  disabled={!!formik.values.id}
+                />
               </Grid>
 
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                  <TextField label='qtd' name='qtd' type="number" formik={formik} disabled={!!formik.values.id} />
+                  <TextField label='qtd' name='qtd' type='number' formik={formik} disabled={!!formik.values.id} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField label='Preço' name='price' formik={formik} mask={'money'} disabled={!!formik.values.id}/>
+                  <TextField label='Preço' name='price' formik={formik} mask={'money'} disabled={!!formik.values.id} />
                 </Grid>
               </Grid>
-              
             </Fragment>
           )}
         </DialogContent>
         <DialogActions>
           <Button onClick={props.onCancel}>Fechar</Button>
-          {!formik.values.id &&
+          {!formik.values.id && (
             <Button color='primary' variant='contained' type='submit' disabled={formik.isSubmitting || !roles}>
               Salvar
             </Button>
-          }
+          )}
         </DialogActions>
       </form>
     </Dialog>

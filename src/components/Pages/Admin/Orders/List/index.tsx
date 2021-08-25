@@ -44,12 +44,11 @@ const OrderListPage = memo(() => {
   }, []);
 
   const formCallback = useCallback(
-    (order?: IOrder) => {
-      console.log(order)
+    () => {
       setFormOpened(false);
       refresh();
     },
-    [current, mergeParams, refresh]
+    [refresh]
   );
 
   const formCancel = useCallback(() => setFormOpened(false), []);

@@ -16,7 +16,8 @@ export class OrderService {
       description: model.description,
       qtd: parseInt(model.qtd.toString()),
       price: model.price
-    }
+    };
+
     return this.apiService.post('/order', params);
   }
 }
